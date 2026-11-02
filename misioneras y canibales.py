@@ -121,3 +121,39 @@ def dfs():
                 pila.append((nuevo, nuevo_camino))
 
     return None, expandidos
+
+def ejecutar_algoritmo(algoritmo, repeticiones=10000):
+
+    inicio = perf_counter()
+
+    for _ in range(repeticiones):
+        camino, nodos = algoritmo()
+
+    fin = perf_counter()
+
+    tiempo = (fin - inicio) / repeticiones
+
+    return camino, nodos, tiempo
+
+resultados = [
+    ("BFS", bfs),
+    ("DFS", dfs)
+]
+
+for nombre, algoritmo in resultados:
+
+    camino, nodos, tiempo = ejecutar_algoritmo(algoritmo)
+
+    print("\nAlgoritmo:", nombre)
+    print("Nodos expandidos:", nodos)
+    print("Tiempo promedio:", tiempo, "segundos")
+    print("Longitud del camino:", len(camino))
+
+    print("\nSecuencia de acciones:")
+
+    for i, accion in enumerate(camino, 1):
+
+        print(
+            f"Paso {i}: "
+            f"Transportar {NOMBRES[accion]}"
+        )
