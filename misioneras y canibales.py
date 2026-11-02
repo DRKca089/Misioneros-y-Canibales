@@ -65,3 +65,59 @@ def obtener_sucesores(estado):
             sucesores.append((nuevo, (m_en_bote, c_en_bote)))
 
     return sucesores
+
+def bfs():
+
+    cola = deque([(INICIAL, [])])
+    visitados = {INICIAL}
+
+    expandidos = 0
+
+    while cola:
+
+        estado, camino = cola.popleft()
+
+        if estado == OBJETIVO:
+            return camino, expandidos
+
+        expandidos += 1
+
+        for nuevo, accion in obtener_sucesores(estado):
+
+            if nuevo not in visitados:
+
+                visitados.add(nuevo)
+
+                nuevo_camino = camino + [accion]
+
+                cola.append((nuevo, nuevo_camino))
+
+    return None, expandidos
+
+def dfs():
+
+    pila = [(INICIAL, [])]
+    visitados = {INICIAL}
+
+    expandidos = 0
+
+    while pila:
+
+        estado, camino = pila.pop()
+
+        if estado == OBJETIVO:
+            return camino, expandidos
+
+        expandidos += 1
+
+        for nuevo, accion in obtener_sucesores(estado):
+
+            if nuevo not in visitados:
+
+                visitados.add(nuevo)
+
+                nuevo_camino = camino + [accion]
+
+                pila.append((nuevo, nuevo_camino))
+
+    return None, expandidos
