@@ -46,3 +46,22 @@ def estado_valido(estado):
 
     return True
 
+def obtener_sucesores(estado):
+
+    m, c, bote = estado
+    sucesores = []
+
+    for m_en_bote, c_en_bote in ACCIONES:
+
+        if bote == 0:
+
+            nuevo = (m - m_en_bote, c - c_en_bote, 1)
+
+        else:
+
+            nuevo = (m + m_en_bote, c + c_en_bote, 0)
+
+        if estado_valido(nuevo):
+            sucesores.append((nuevo, (m_en_bote, c_en_bote)))
+
+    return sucesores
